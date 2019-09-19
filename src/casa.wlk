@@ -7,15 +7,15 @@ object casaDePepeYJulian {
 	method tieneComida() { return cosas.any { cosa => cosa.esComida() } }
 	method vieneDeEquiparse() { return cosas.last().esElectrodomestico() or cosas.last().precio() > 5000 }
 	method esDerrochona() { return (cosas.sum { cosa => cosa.precio()}) >= 9000 } 
-	method compraMasCara() { return cosas.max {cosa => cosa.precio()} }
+	method compraMasCara() { return cosas.max { cosa => cosa.precio()} }
 	method electrodomesticosComprados() { return cosas.filter {cosa => cosa.esElectrodomestico() } }
-	method malaEpoca() { return (cosas.all().esComida()) } 
+	method malaEpoca() { return true if (cosas.all()) { cosa => cosa.esComida() } } 
 	method queFaltaComprar() { return cosas.filter { cosa => not cosas.contains(cosa) } }
-	method gastoEnComida() { return cosas.filter {cosa=>cosa.esComida() } }
+	method gastoEnComida() { return cosas.filter { (cosa => cosa.esComida()).(cosas.sum {cosa => cosa.precio() } ) }
 	method hayElectrodomesticosBaratos() { return cosas.filter { cosa => cosa.esElectrodomestico() and cosa.precio() <= 3000 } }
-	method precioDeElectrodomesticos() { return cosas.filter { cosa => cosa.esElectrodomestico().precio() } }
-	method nivelDeAumento() { return cosas.first().precio() <= (cosas.last().precio() * 2) }
-	method primeraComidaComprada() { return cosas.first().esComida() } }
+	method precioDeElectrodomesticos() { return (cosas.filter { (cosa => cosa.esElectrodomestico())).(cosas.map { (cosa => cosa.precio()) })
+	method nivelEnAumento() { return cosas.first().precio() >= (cosas.last().precio() * 2) }
+	method primeraComidaComprada() { return cosas.find().esComida() } }
 	
 object cuentaCorrientes { 
 	var saldo

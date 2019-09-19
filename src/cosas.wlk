@@ -73,7 +73,14 @@ object packComida {
 }
 	
 object packRegalo {
-
+	var componentes
+	method componentes() { return componentes }
+	method esComida() { return true }
+	method descuento(esComida) { 
+		if componentes == esComida() {
+			return true }
+    }
+    method precio() { return componentes.precio() * 0.20 }
 }
 
 object dolar {
